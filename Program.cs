@@ -48,7 +48,8 @@ namespace workflow_simplest_autocad.io
         {
             //instruct client side library to insert token as Authorization value into each request
             var container = new AIO.Container(new Uri("https://developer.api.autodesk.com/autocad.io/v1/"));
-            container.SendingRequest2 += (sender, e) => e.RequestMessage.SetHeader("Authorization", GetToken());
+            var token = GetToken();
+            container.SendingRequest2 += (sender, e) => e.RequestMessage.SetHeader("Authorization", token);
 
             //create a workitem
             var wi = new AIO.WorkItem()
