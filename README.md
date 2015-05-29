@@ -10,7 +10,7 @@ Visual Studio 2013.
 
 ##Setup/Usage Instructions
 
-None
+None.
 
 ## License
 
