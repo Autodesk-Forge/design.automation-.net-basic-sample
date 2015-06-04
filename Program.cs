@@ -7,6 +7,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
+using AIO.Operations;
+using AIO.ACES.Models;
+
 namespace workflow_simplest_autocad.io
 {
     class Credentials
@@ -32,6 +35,7 @@ namespace workflow_simplest_autocad.io
                 return resValues["token_type"] + " " + resValues["access_token"];
             }
         }
+
         static void DownloadToDocs(string url, string localFile)
         {
             var client = new HttpClient();
@@ -44,34 +48,33 @@ namespace workflow_simplest_autocad.io
                 output.Close();
             }
         }
+        
         static void Main(string[] args)
         {
             //instruct client side library to insert token as Authorization value into each request
-            var container = new AIO.Container(new Uri("https://developer.api.autodesk.com/autocad.io/v1/"));
+            var container = new Container(new Uri("https://developer.api.autodesk.com/autocad.io/us-east/v2/"));
             var token = GetToken();
             container.SendingRequest2 += (sender, e) => e.RequestMessage.SetHeader("Authorization", token);
 
             //create a workitem
-            var wi = new AIO.WorkItem()
+            var wi = new WorkItem()
             {
-                UserId = "", //must be set to empty
                 Id = "", //must be set to empty
-                Arguments = new AIO.Arguments(),
-                Version = 1, //should always be 1
-                ActivityId = new AIO.EntityId() { UserId = "Shared", Id = "PlotToPDF" } //PlotToPDF is a predefined activity
+                Arguments = new Arguments(),
+                ActivityId = "PlotToPDF" //PlotToPDF is a predefined activity
             };
 
-            wi.Arguments.InputArguments.Add(new AIO.Argument()
+            wi.Arguments.InputArguments.Add(new Argument()
                 {
                     Name = "HostDwg",// Must match the input parameter in activity
                     Resource = "http://download.autodesk.com/us/samplefiles/acad/blocks_and_tables_-_imperial.dwg",
-                    StorageProvider = "Generic" //Generic HTTP download (as opposed to A360)
+                    StorageProvider = StorageProvider.Generic //Generic HTTP download (as opposed to A360)
                 });
-            wi.Arguments.OutputArguments.Add(new AIO.Argument()
+            wi.Arguments.OutputArguments.Add(new Argument()
             {
                 Name = "Result", //must match the output parameter in activity
-                StorageProvider = "Generic", //Generic HTTP upload (as opposed to A360)
-                HttpVerb = "POST", //use HTTP POST when delivering result
+                StorageProvider = StorageProvider.Generic, //Generic HTTP upload (as opposed to A360)
+                HttpVerb = HttpVerbType.POST, //use HTTP POST when delivering result
                 Resource = null //use storage provided by AutoCAD.IO
             });
 
@@ -87,11 +90,11 @@ namespace workflow_simplest_autocad.io
                 container.LoadProperty(wi, "Status"); //http request is made here
                 Console.WriteLine("WorkItem status: {0}", wi.Status);
             }
-            while (wi.Status == "Pending" || wi.Status == "InProgress");
+            while (wi.Status == ExecutionStatus.Pending || wi.Status == ExecutionStatus.InProgress);
 
             //re-query the service so that we can look at the details provided by the service
-            container.MergeOption = System.Data.Services.Client.MergeOption.OverwriteChanges;
-            wi = container.WorkItems.Where(p => p.UserId == wi.UserId && p.Id == wi.Id).First();
+            container.MergeOption = Microsoft.OData.Client.MergeOption.OverwriteChanges;
+            wi = container.WorkItems.ByKey(wi.Id).GetValue();
             
             //Resource property of the output argument "Result" will have the output url
             var url = wi.Arguments.OutputArguments.First(a => a.Name == "Result").Resource;
