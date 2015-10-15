@@ -18,6 +18,10 @@ Visual Studio 2013.
 
 Please refer to [AutoCAD.IO V2 API documentation](https://developer.autodesk.com/api/autocadio/v2/#tutorials).
 
+## Questions
+
+Please post your question at our [forum](http://forums.autodesk.com/t5/autocad-i-o/bd-p/105).
+
 ## License
 
 These samples are licensed under the terms of the [MIT License](http://opensource.org/licenses/MIT). Please see the [LICENSE](LICENSE) file for full details.
