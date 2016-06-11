@@ -15,8 +15,8 @@ namespace workflow_simplest_autocad.io
     class Credentials
     {
         //get your ConsumerKey/ConsumerSecret at http://developer.autodesk.com
-        public static string ConsumerKey = "";
-        public static string ConsumerSecret = "";
+        public static string ConsumerKey = "<Your Key>";
+        public static string ConsumerSecret = "<Your Secret>";
     }
     class Program
     {
@@ -75,7 +75,7 @@ namespace workflow_simplest_autocad.io
                 Name = "Result", //must match the output parameter in activity
                 StorageProvider = StorageProvider.Generic, //Generic HTTP upload (as opposed to A360)
                 HttpVerb = HttpVerbType.POST, //use HTTP POST when delivering result
-                Resource = null //use storage provided by AutoCAD.IO
+                Resource = null //use storage provided by Design Automation
             });
 
             container.AddToWorkItems(wi);
@@ -98,11 +98,11 @@ namespace workflow_simplest_autocad.io
             
             //Resource property of the output argument "Result" will have the output url
             var url = wi.Arguments.OutputArguments.First(a => a.Name == "Result").Resource;
-            DownloadToDocs(url, "AIO.pdf");
+            DownloadToDocs(url, "DesignAutomation.pdf");
             
             //download the status report
             url = wi.StatusDetails.Report;
-            DownloadToDocs(url, "AIO-report.txt");
+            DownloadToDocs(url, "DesignAutomation.txt");
         }
     }
 }
