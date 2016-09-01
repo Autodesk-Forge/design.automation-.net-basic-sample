@@ -28,6 +28,7 @@ namespace workflow_simplest_autocad.io
                 values.Add(new KeyValuePair<string, string>("client_id", Credentials.ConsumerKey));
                 values.Add(new KeyValuePair<string, string>("client_secret", Credentials.ConsumerSecret));
                 values.Add(new KeyValuePair<string, string>("grant_type", "client_credentials"));
+                values.Add(new KeyValuePair<string, string>("scope", "code:all"));
                 var requestContent = new FormUrlEncodedContent(values);
                 var response = client.PostAsync("https://developer.api.autodesk.com/authentication/v1/authenticate", requestContent).Result;
                 var responseContent = response.Content.ReadAsStringAsync().Result;
