@@ -18,6 +18,24 @@ namespace workflow_simplest_autocad.io
         public static string ConsumerKey = "<Your Key>";
         public static string ConsumerSecret = "<Your Secret>";
     }
+
+    class ForgeDesignAutoSrv
+    {
+        public static string containerUrl = "https://developer.api.autodesk.com/autocad.io/us-east/v2/";
+
+        //check with developer portal of Forge if any endpoints are updated when you test this sample
+        //https://developer.autodesk.com
+
+        public static string forgeServiceBaseUrl = "https://developer.api.autodesk.com";
+        public static string autenticationUrl = forgeServiceBaseUrl + "/authentication/v1/authenticate"; 
+    }
+
+    class testReSource
+    {
+        //replace with your DWG source (signed or unsigned URL)
+        public static string sourceDWGForPDF = "http://download.autodesk.com/us/samplefiles/acad/blocks_and_tables_-_imperial.dwg";
+    }
+
     class Program
     {
         static string GetToken()
@@ -30,7 +48,7 @@ namespace workflow_simplest_autocad.io
                 values.Add(new KeyValuePair<string, string>("grant_type", "client_credentials"));
                 values.Add(new KeyValuePair<string, string>("scope", "code:all"));
                 var requestContent = new FormUrlEncodedContent(values);
-                var response = client.PostAsync("https://developer.api.autodesk.com/authentication/v1/authenticate", requestContent).Result;
+                var response = client.PostAsync(ForgeDesignAutoSrv.autenticationUrl, requestContent).Result;
                 var responseContent = response.Content.ReadAsStringAsync().Result;
                 var resValues = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseContent);
                 return resValues["token_type"] + " " + resValues["access_token"];
@@ -53,7 +71,7 @@ namespace workflow_simplest_autocad.io
         static void Main(string[] args)
         {
             //instruct client side library to insert token as Authorization value into each request
-            var container = new Container(new Uri("https://developer.api.autodesk.com/autocad.io/us-east/v2/"));
+            var container = new Container(new Uri(ForgeDesignAutoSrv.containerUrl));
             var token = GetToken();
             container.SendingRequest2 += (sender, e) => e.RequestMessage.SetHeader("Authorization", token);
 
@@ -68,7 +86,7 @@ namespace workflow_simplest_autocad.io
             wi.Arguments.InputArguments.Add(new Argument()
                 {
                     Name = "HostDwg",// Must match the input parameter in activity
-                    Resource = "http://download.autodesk.com/us/samplefiles/acad/blocks_and_tables_-_imperial.dwg",
+                    Resource = testReSource.sourceDWGForPDF ,
                     StorageProvider = StorageProvider.Generic //Generic HTTP download (as opposed to A360)
                 });
             wi.Arguments.OutputArguments.Add(new Argument()
