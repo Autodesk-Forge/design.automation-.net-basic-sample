@@ -21,7 +21,7 @@ Visual Studio 2012, 2013, 2015.
 * Restore the packages of the project by [NuGet](https://www.nuget.org/). The simplest way is
   * VS2012: Projects tab >> Enable NuGet Package Restore. Then right click the project>>"Manage NuGet Packages for Solution" >> "Restore" (top right of dialog)
   * VS2013/VS2015:  right click the project>>"Manage NuGet Packages for Solution" >> "Restore" (top right of dialog)
-* Apply credencials of Design Automation API from https://developer.autodesk.com/. Put your consumer key and secret key at  line 18 and 19 of [program.cs](./Program.cs) 
+* Apply credencials of Design Automation API from https://developer.autodesk.com/. Put your consumer key and secret key in [program.cs](./Program.cs) 
 *  Run project, you will see a status in the console:
 * if everything works well, the result file (pdf) and the report files will be downloaded at **MyDocuments**.
 * if there is any error with the process, check the report file what error is indicated.
