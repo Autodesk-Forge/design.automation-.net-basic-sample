@@ -31,7 +31,7 @@ Please refer to [Design Automation API v2 API documentation](https://developer.a
 
 ## Questions
 
-Please post your question at our [forum](http://forums.autodesk.com/t5/autocad-i-o/bd-p/105).
+Please post your question at our [Forge Support Portal](https://developer.autodesk.com/en/support/get-help).
 
 ## License
 
