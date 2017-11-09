@@ -16,7 +16,7 @@ This is the simplest C# client that uses the predefined PlotToPDF activity. It i
 
 Visual Studio 2012, 2013, 2015.
 
-##Setup/Usage Instructions
+## Setup/Usage Instructions
 
 * Restore the packages of the project by [NuGet](https://www.nuget.org/). The simplest way is
   * VS2012: Projects tab >> Enable NuGet Package Restore. Then right click the project>>"Manage NuGet Packages for Solution" >> "Restore" (top right of dialog)
