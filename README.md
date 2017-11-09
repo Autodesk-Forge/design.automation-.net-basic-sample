@@ -1,4 +1,4 @@
-#Design Automation API Basic Sample
+# Design Automation API Basic Sample
 (Formely AutoCAD I/O)
 
 [![.net](https://img.shields.io/badge/.net-4.5-green.svg)](http://www.microsoft.com/en-us/download/details.aspx?id=30653)
@@ -8,11 +8,11 @@
 [![License](http://img.shields.io/:license-mit-red.svg)](http://opensource.org/licenses/MIT)
 
 
-##Description
+## Description
 
 This is the simplest C# client that uses the predefined PlotToPDF activity. It is the sample for the tutorial of design automation API.
 
-##Dependencies
+## Dependencies
 
 Visual Studio 2012, 2013, 2015.
 
@@ -27,7 +27,7 @@ Visual Studio 2012, 2013, 2015.
 * if there is any error with the process, check the report file what error is indicated.
 * 
 Please refer to [Design Automation API v2 API documentation](https://developer.autodesk.com/en/docs/design-automation/v2/overview/).
-[![](help/console.png)] 
+![thumbnail](help/console.png)
 
 ## Questions
 
@@ -37,6 +37,6 @@ Please post your question at our [Forge Support Portal](https://developer.autode
 
 These samples are licensed under the terms of the [MIT License](http://opensource.org/licenses/MIT). Please see the [LICENSE](LICENSE) file for full details.
 
-##Written by 
+## Written by 
 
 Jonathan Miao & Albert Szilvasy
