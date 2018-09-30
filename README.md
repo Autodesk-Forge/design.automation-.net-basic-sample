@@ -12,6 +12,9 @@
 
 This is the simplest C# client that uses the predefined PlotToPDF activity of AutoCAD Design Automation . It is the sample for the tutorial of design automation API.
 
+## Industry background
+To batch convert DWG to PDF by web services, instead of plugin of local AutoCAD.
+
 ## Thumbnail
 ![thumbnail](/thumbnail.png)  
 
